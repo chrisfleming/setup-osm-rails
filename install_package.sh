@@ -1,7 +1,9 @@
 #!/bin/bash
 
 SRC=/home/osm/src/
-BASEDIR=$(dirname $0)
+BASEDIR="$( cd "$( dirname "$0" )" && pwd )"
+
+echo $BASEDIR
 
 mkdir -p $SRC
 
@@ -25,16 +27,12 @@ git clone git://git.openstreetmap.org/rails.git
 # Postgres Setup
 sudo apt-get install postgresql-contrib libpq-dev
 sudo su postgres -c "/usr/bin/psql < $BASEDIR/setup_user_databases.sql" 
-#createuser openstreetmap -s -P
-#createdb -E UTF8 -O openstreetmap openstreetmap 
-#createdb -E UTF8 -O openstreetmap osm_test
-#createdb -E UTF8 -O openstreetmap osm
 sudo su postgres -c "/usr/bin/psql -d openstreetmap < /usr/share/postgresql/8.4/contrib/btree_gist.sql"
 
 
-cd $SRC
-cp config/postgres.example.database.yml config/database.yml
+cp $BASEDIR/database.yml config/database.yml
 
+cd $SRC/rails
 # Get the GEMS Needed
 sudo gem install -v=2.3.14 rails 
 sudo gem install timecop
@@ -44,9 +42,8 @@ sudo gem install rack-openid
 sudo gem install oauth
 
 # Setup Rails Port
-cd $SRC
+cd $SRC/rails
 cp config/example.application.yml config/application.yml
-cp config/postgres.example.database.yml config/database.yml
 sudo rake gems:install
 
 rake db:migrate
