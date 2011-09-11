@@ -11,4 +11,10 @@ ruby script/server
 Should start the webserver and you should have access to this at:
 http://localhost:3000/
 
+Note at the moment, this just uses a default database password of openstreetmap, If you
+want to change this then run:
 
+sudo su postgres
+psql -c "ALTER ROLE openstreetmap WITH PASSWORD 'yourpassword'"
+
+Also change the password in config/databases.yml
