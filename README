@@ -1,0 +1,14 @@
+On a clean install.... run  install_packages.sh and everything should work.
+
+At the moment a few tests fail,  but I *think* this is expected.
+
+This gets you to the end of rake test on the Wiki Page:
+http://wiki.openstreetmap.org/wiki/The_Rails_Port#Running_the_tests
+
+If all is well then:
+ruby script/server
+
+Should start the webserver and you should have access to this at:
+http://localhost:3000/
+
+
