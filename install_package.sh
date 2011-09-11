@@ -14,11 +14,14 @@ sudo apt-get -y install git-core
 # GET RubyGems
 
 
+cd $SRC
 wget http://files.rubyforge.vm.bytemark.co.uk/rubygems/rubygems-1.3.7.tgz
-tar -xzvf rubygems-1.3.7.tgz 
+echo "Extracting rubygems"
+tar -xzf rubygems-1.3.7.tgz 
 cd rubygems-1.3.7/
 sudo ruby setup.rb 
 sudo ln -s /usr/bin/gem1.8 /usr/bin/gem
+rm rubygems-1.3.7.tgz
 
 # GET source
 cd  $SRC
@@ -30,7 +33,7 @@ sudo su postgres -c "/usr/bin/psql < $BASEDIR/setup_user_databases.sql"
 sudo su postgres -c "/usr/bin/psql -d openstreetmap < /usr/share/postgresql/8.4/contrib/btree_gist.sql"
 
 
-cp $BASEDIR/database.yml config/database.yml
+cp $BASEDIR/database.yml $SRC/rails/config/database.yml
 
 cd $SRC/rails
 # Get the GEMS Needed
