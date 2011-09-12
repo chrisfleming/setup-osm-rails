@@ -56,9 +56,10 @@ cp config/example.application.yml config/application.yml
 
 # Because I run the gems install as root, I need to create the logs files in advance
 # So that they're not root owned.
-touch $SRC/log/development.log
-touch $SRC/log/test.log
-chmod 0666 $SRC/log/*.log
+mkdir $SRC/rails/log
+touch $SRC/rails/log/development.log
+touch $SRC/rails/log/test.log
+chmod 0666 $SRC/rails/log/*.log
 
 sudo rake gems:install
 
