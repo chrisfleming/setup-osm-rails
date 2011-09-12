@@ -21,6 +21,7 @@ tar -xzf rubygems-1.3.7.tgz
 cd rubygems-1.3.7/
 sudo ruby setup.rb 
 sudo ln -s /usr/bin/gem1.8 /usr/bin/gem
+cd ..
 rm rubygems-1.3.7.tgz
 
 
@@ -52,6 +53,13 @@ sudo gem install oauth
 echo "Setup the rails port"
 cd $SRC/rails
 cp config/example.application.yml config/application.yml
+
+# Because I run the gems install as root, I need to create the logs files in advance
+# So that they're not root owned.
+touch $SRC/log/development.log
+touch $SRC/log/test.log
+chmod 0666 $SRC/log/*.log
+
 sudo rake gems:install
 
 rake db:migrate
